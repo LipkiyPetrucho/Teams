@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<p>Добро пожаловать,
+    {% if user.first_name %}
+    {{ user.first_name }}
+    {% else %}
+    {{ user.username }}
+    {% endif %}
+    ,на вашу страницу.</p>
+
+<p>Вы можете также <a href="{% url 'edit' %}">редактировать свой профиль</a>
+    или <a href="{% url 'password_change' %}"> изменить свой пароль </a>
+  </p>
+
+
+
+{% endblock %}

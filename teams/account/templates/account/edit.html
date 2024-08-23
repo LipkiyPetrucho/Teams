@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Редактирование профиля{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Редактирование профиля</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" class="mt-4">
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="id_username">Имя пользователя</label>
+                        {{ user_form.first_name.errors }}
+                        {{ user_form.first_name }}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="id_username">Имя пользователя</label>
+                        {{ user_form.last_name.errors }}
+                        {{ user_form.last_name }}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="id_email">Email</label>
+                        {{ user_form.email.errors }}
+                        {{ user_form.email }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="id_date_of_birth">Дата рождения</label>
+                        {{ profile_form.date_of_birth.errors }}
+                        {{ profile_form.date_of_birth }}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="id_location">Местоположение</label>
+                        {{ profile_form.location.errors }}
+                        {{ profile_form.location }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block mt-3">Сохранить изменения</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <p><a href="{% url 'dashboard' %}" class="btn btn-secondary">на Главную</a></p>
+    </div>
+</div>
+{% endblock %}

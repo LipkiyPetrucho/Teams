@@ -1,1 +1,1 @@
-Teams сервис, который упрощает поиск игроков в команду.
+Teams service that makes it easy to find players for your team.
