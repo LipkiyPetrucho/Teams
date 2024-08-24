@@ -4,12 +4,14 @@
 
 {% block content %}
 <p>Добро пожаловать,
-    {% if user.first_name %}
-    {{ user.first_name }}
-    {% else %}
-    {{ user.username }}
-    {% endif %}
-    ,на вашу страницу.</p>
+    <a href="{% url 'user_detail' user.username %}">
+        {% if user.first_name %}
+            {{ user.first_name }}
+        {% else %}
+            {{ user.username }}
+        {% endif %}
+    </a>
+        ,на вашу страницу.</p>
 
 <p>Вы можете также <a href="{% url 'edit' %}">редактировать свой профиль</a>
     или <a href="{% url 'password_change' %}"> изменить свой пароль </a>

@@ -11,5 +11,5 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 
-    # def get_absolute_url(self):
-    #     return reverse('user_detail', args=[str(self.id)])
+    def get_absolute_url(self):
+        return reverse('user_detail', args=[str(self.id)])
