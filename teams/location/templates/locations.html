@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <form method="post" action="/locations/" class="form-inline justify-content-center my-4">
+        {% csrf_token %}
+        <i class="fas fa-city"></i> &nbsp;
+        {{ form.name }}
+        <button type="submit" class="btn btn-info">Поиск</button>
+    </form>
+<div id="container-gis"></div>
+
+{% if coordinates %}
+    <script>
+        window.cityCoordinates = [{{ coordinates.0 }}, {{ coordinates.1 }}];
+    </script>
+{% else %}
+    <script>
+        window.cityCoordinates = [50.1500000, 53.2000700];
+    </script>
+{% endif %}
+
+    {% if football_fields_data %}
+        <div class="text-center mt-3">
+            {% for football_field in football_fields_data.result.items %}
+                <p><strong>Название:</strong> {{ football_field.full_name }}</p>
+                <p><strong>Адрес:</strong> {{ football_field.address_name|default:"Не указано" }}</p>
+                <p>{{ football_field.name|default:"Нет комментариев" }}</p>
+                <hr>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

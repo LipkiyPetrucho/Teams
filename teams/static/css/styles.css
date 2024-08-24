@@ -6,3 +6,9 @@
 .nav-item {
    margin-right: 15px;
 }
+
+#container-gis {
+    width: 500px;
+    height: 300px;
+    background-color: lightgray; /* Временный цвет для проверки */
+}
