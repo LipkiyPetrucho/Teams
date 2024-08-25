@@ -4,4 +4,16 @@ document.addEventListener("DOMContentLoaded", function() {
         center: cityCoordinates,
         zoom: 11,
     });
+
+    if (window.fieldsCoordinates && window.fieldsCoordinates.length > 0) {
+        window.fieldsCoordinates.forEach(function(coordinates) {
+            const marker = new mapgl.Marker(map, {
+                coordinates: coordinates,
+            });
+        });
+    } else {
+        console.warn("Нет доступных координат для маркеров.");
+    }
 });
+
+

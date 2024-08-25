@@ -9,17 +9,23 @@
         {{ form.name }}
         <button type="submit" class="btn btn-info">Поиск</button>
     </form>
-<div id="container-gis"></div>
 
-{% if coordinates %}
-    <script>
-        window.cityCoordinates = [{{ coordinates.0 }}, {{ coordinates.1 }}];
-    </script>
-{% else %}
-    <script>
-        window.cityCoordinates = [50.1500000, 53.2000700];
-    </script>
-{% endif %}
+    <div id="container-gis"></div>
+
+    {% if coordinates %}
+        <script>
+            window.cityCoordinates = [{{ coordinates.0 }}, {{ coordinates.1 }}];
+        </script>
+    {% endif %}
+
+    {% if coordinates_list %}
+        <pre>{{ coordinates_list|safe }}</pre>
+        <script>
+            window.fieldsCoordinates = {{ coordinates_list }};
+        </script>
+    {% endif %}
+
+
 
     {% if football_fields_data %}
         <div class="text-center mt-3">

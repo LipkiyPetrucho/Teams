@@ -6,12 +6,12 @@ class City(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
 
     class Meta:
-        ordering = ['name']
+        ordering = ["name"]
         indexes = [
-            models.Index(fields=['name']),
+            models.Index(fields=["name"]),
         ]
-        verbose_name = 'city'
-        verbose_name_plural = 'cities'
+        verbose_name = "city"
+        verbose_name_plural = "cities"
 
     def __str__(self):
         return self.name
@@ -20,15 +20,13 @@ class City(models.Model):
 class Place(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
-    city = models.ForeignKey(City,
-                             related_name='places',
-                             on_delete=models.CASCADE)
+    city = models.ForeignKey(City, related_name="places", on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ['name']
+        ordering = ["name"]
         indexes = [
-            models.Index(fields=['id', 'slug']),
-            models.Index(fields=['name']),
+            models.Index(fields=["id", "slug"]),
+            models.Index(fields=["name"]),
         ]
 
     def __str__(self):

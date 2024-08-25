@@ -12,4 +12,4 @@ class Profile(models.Model):
         return str(self.user)
 
     def get_absolute_url(self):
-        return reverse('user_detail', args=[str(self.id)])
+        return reverse("user_detail", args=[str(self.id)])
