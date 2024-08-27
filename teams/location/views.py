@@ -1,4 +1,7 @@
+import os
+
 import requests
+from django.conf import settings
 from django.shortcuts import render
 
 from location.forms import CityForm
@@ -21,64 +24,54 @@ def football_fields(request):
 
     form = CityForm()
 
-    coordinates_list = [
-        get_coordinates(field['name'])
-        for field in football_fields_data['result']['items']
-        if get_coordinates(field['name']) is not None
-    ]
-
     context = {
         "football_fields_data": football_fields_data,
         "form": form,
         "city": city,
         "coordinates": coordinates,
-        "coordinates_list": coordinates_list,
     }
     return render(request, "locations.html", context)
 
 
 def get_football_fields_data(city):
-    YOUR_KEY = "2c6f5ef9-bfc1-4fb3-9028-4d0362ee75da"
-    BASE_URL = "https://catalog.api.2gis.com/3.0/items"
+    url_city = f"{settings.BASE_URL}?q={city}&key={os.getenv.YOUR_KEY}"
+    print(f"URL для города: {url_city}")
 
-    url_city = f"{BASE_URL}?q={city}&key={YOUR_KEY}"
     response_city = requests.get(url_city)
 
     if response_city.status_code == 200:
         data_id = response_city.json()
 
-    if (
-        "result" in data_id
-        and "items" in data_id["result"]
-        and data_id["result"]["items"]
-    ):
-        city_id_full = data_id["result"]["items"][0]["id"]
-        city_id = city_id_full.split("_")[0]
+        if (
+            "result" in data_id
+            and "items" in data_id["result"]
+            and data_id["result"]["items"]
+        ):
+            city_id_full = data_id["result"]["items"][0]["id"]
+            city_id = city_id_full.split("_")[0]
 
-    url_location = f"{BASE_URL}?q=футбольное поле&city_id={city_id}&key={YOUR_KEY}"
-    response_location = requests.get(url_location)
-    football_fields_data = response_location.json()
+            url_location = f"{settings.BASE_URL}?q=футбольное поле&city_id={city_id}&key={os.getenv.YOUR_KEY}"
+            print(f"URL для футбольного поля: {url_location}")
+            response_location = requests.get(url_location)
+            football_fields_data = response_location.json()
 
-    return football_fields_data
+            return football_fields_data
 
 
 def get_coordinates(city):
-    YOUR_KEY = "2c6f5ef9-bfc1-4fb3-9028-4d0362ee75da"
-    BASE_URL = "https://catalog.api.2gis.com/3.0/items/geocode"
-
-    url_geo = f"{BASE_URL}?q={city}&fields=items.point&key={YOUR_KEY}"
+    url_geo = f"{settings.BASE_URL_GEOCODE}?q={city}&fields=items.point&key={os.getenv.YOUR_KEY}"
     response_geo = requests.get(url_geo)
 
     if response_geo.status_code == 200:
         data_id = response_geo.json()
 
-    if (
-        "result" in data_id
-        and "items" in data_id["result"]
-        and data_id["result"]["items"]
-    ):
-        point = data_id["result"]["items"][0]["point"]
-        lat = point["lat"]
-        lon = point["lon"]
-        return [lon, lat]
+        if (
+            "result" in data_id
+            and "items" in data_id["result"]
+            and data_id["result"]["items"]
+        ):
+            point = data_id["result"]["items"][0]["point"]
+            lat = point["lat"]
+            lon = point["lon"]
+            return [lon, lat]
     return None

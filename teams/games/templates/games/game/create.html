@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %} Создать игру {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Создать игру</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <form method="post" class="mt-4">
+                {% csrf_token %}
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.sport.id_for_label }}">{{ form.sport.label }}</label>
+                        {{ form.sport.errors }}
+                        {{ form.sport }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+                        {{ form.city.errors }}
+                        {{ form.city }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.place.id_for_label }}">{{ form.place.label }}</label>
+                        {{ form.place.errors }}
+                        {{ form.place }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.date.id_for_label }}">{{ form.date.label }}</label>
+                        {{ form.date.errors }}
+                        {{ form.date }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.start_time.id_for_label }}">{{ form.start_time.label }}</label>
+                        {{ form.start_time.errors }}
+                        {{ form.start_time }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.duration.id_for_label }}">{{ form.duration.label }}</label>
+                        {{ form.duration.errors }}
+                        {{ form.duration }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.max_players.id_for_label }}">{{ form.max_players.label }}</label>
+                        {{ form.max_players.errors }}
+                        {{ form.max_players }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
+                        {{ form.price.errors }}
+                        {{ form.price }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                        {{ form.description.errors }}
+                        {{ form.description }}
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block mt-3">Создать игру</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-3 text-center">
+        <p>* Поля со звёздочкой являются обязательными</p>
+    </div>
+</div>
+{% endblock %}

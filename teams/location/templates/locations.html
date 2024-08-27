@@ -19,13 +19,10 @@
     {% endif %}
 
     {% if coordinates_list %}
-        <pre>{{ coordinates_list|safe }}</pre>
         <script>
             window.fieldsCoordinates = {{ coordinates_list }};
         </script>
     {% endif %}
-
-
 
     {% if football_fields_data %}
         <div class="text-center mt-3">

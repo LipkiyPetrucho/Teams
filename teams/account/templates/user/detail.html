@@ -6,7 +6,8 @@
 
  <div class="profile-info">
       <h1>{{ user.get_full_name }}</h1>
-         <p>{{ user.profile.date_of_birth }}</p>
+        <p><i class="fas fa-birthday-cake"></i> - {{ user.profile.date_of_birth }}</p>
+        <p><i class="fas fa-city"></i> - {{ user.profile.location }}</p>
  </div>
 {% endblock %}
 
