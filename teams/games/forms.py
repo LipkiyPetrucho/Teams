@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import Select, TextInput, NumberInput, Textarea, ClearableFileInput
+from django.forms import Select, TextInput, NumberInput, Textarea
 
 from .models import Game
 

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ game.sport }} | {{ user.username }}{% endblock %}
+
+{% block content %}
+
+    <h1>{{ game.get_sport_display }}</h1>
+        <p>{{ user.first_name }} - {{ user.email }}</p>
+        <p>
+            <i class="fas fa-calendar"></i> {{ game.date }}&nbsp;&nbsp;&nbsp;
+            <i class="fas fa-clock"></i> {{ game.start_time }}&nbsp;&nbsp;&nbsp;
+            <i class="fas fa-map-marker"></i> {{ game.place }}
+        </p>
+    <p>{{ game.description }}</p>
+
+    <p>
+      <i class="fas fa-coins"></i> {{ game.price }}
+    </p>
+
+{% endblock %}

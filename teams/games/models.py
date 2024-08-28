@@ -29,7 +29,7 @@ class Game(models.Model):
         on_delete=models.CASCADE,
     )
     sport = models.CharField(max_length=255, choices=SPORTS)
-    city = models.CharField(max_length=100)
+    city = models.CharField(max_length=100, default="Самара")
     place = models.CharField(max_length=255)
     date = models.DateField(default=timezone.now)
     start_time = models.TimeField(default=timezone.now)

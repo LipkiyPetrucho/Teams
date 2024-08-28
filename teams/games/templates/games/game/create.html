@@ -8,7 +8,7 @@
 
     <div class="card">
         <div class="card-body">
-            <form method="post" class="mt-4">
+            <form method="post" class="mt-4" id="gameCreateForm">
                 {% csrf_token %}
 
                 <div class="form-row">
@@ -73,6 +73,7 @@
 
                 <button type="submit" class="btn btn-primary btn-block mt-3">Создать игру</button>
             </form>
+            <div id="validationResult" class="mt-3 text-center"></div>
         </div>
     </div>
 
@@ -80,4 +81,51 @@
         <p>* Поля со звёздочкой являются обязательными</p>
     </div>
 </div>
+
+<script>
+    document.getElementById("gameCreateForm").onsubmit = async function(event) {
+        event.preventDefault(); // Останавливаем стандартное поведение формы
+
+        const formData = new FormData(this);
+        // Валидация город и место
+        const city = formData.get("city");
+        const place = formData.get("place");
+        const validationResponseDiv = document.getElementById("validationResult");
+
+        // Проверка только этих двух полей перед отправкой
+        if (city.trim() === "" || place.trim() === "") {
+            validationResponseDiv.innerText = "Пожалуйста, заполните поля Город и Место.";
+            validationResponseDiv.style.color = "red";
+            return; // Если не заполнены, прерываем выполнение
+        }
+
+        // Отправка данных на сервер
+        const response = await fetch("{% url 'games:validate_address' %}", {
+            method: 'POST',
+            body: JSON.stringify({
+            address: place,
+            region_code: "US", // пример, или используйте другое значение
+            locality: city
+        }),
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        }
+    });
+        const result = await response.json();
+
+        // Обработка ответа от сервера
+        if (!result.valid) {
+            validationResponseDiv.innerText = "Ошибка: " + result.message;
+            validationResponseDiv.style.color = "red";
+        } else {
+            validationResponseDiv.innerText = result.message; // сообщаем о валидности
+            validationResponseDiv.style.color = "green";
+
+            // Если валидация успешна, можно дополнительно отправить форму
+            this.submit(); // Вызываем стандартную отправку формы
+        }
+    };
+</script>
+
 {% endblock %}

@@ -101,7 +101,8 @@ LOGIN_REDIRECT_URL = "dashboard"
 LOGIN_URL = "login"
 LOGOUT_REDIRECT_URL = "login"
 
-#2GIS
+# 2GIS
 BASE_URL = "https://catalog.api.2gis.com/3.0/items"
 BASE_URL_GEOCODE = "https://catalog.api.2gis.com/3.0/items/geocode"
-
+# GoogleMaps
+GMAPS_KEY = os.getenv("GMAPS_KEY")
