@@ -7,5 +7,4 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("account.urls")),
     path("games/", include("games.urls")),
-    path("", include("location.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -7,13 +7,6 @@
    margin-right: 15px;
 }
 
-#container-gis {
-    width: 80%;
-    max-width: 800px;
-    height: 400px;
-    margin: 0 auto;
-}
-
 /*Стилизация подсказок при вводе названия города*/
 #suggestions {
     border: 1px solid #ccc;
