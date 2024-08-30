@@ -1,3 +1,18 @@
+.info {
+    background-color: #CCCCCC;  /* Темный фон */
+    padding: 10px;           /* Немного отступа для оформления */
+    border-radius: 5px;      /* Закругленные углы (по желанию) */
+}
+
+.info a {
+    color: #000000;             /* Белый цвет текста для ссылки */
+    text-decoration: none;   /* Убирает подчеркивание (по желанию) */
+}
+
+.info a:hover {
+    color: #f0f0f0;         /* Более светлый цвет при наведении (по желанию) */
+}
+
 .nav-link {
    display: flex;
    align-items: center;
@@ -28,3 +43,5 @@
 .suggestion:hover {
     background-color: #f0f0f0;
 }
+
+#game-list { overflow:hidden; }

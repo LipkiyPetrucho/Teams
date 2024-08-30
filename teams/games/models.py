@@ -16,9 +16,13 @@ class Game(models.Model):
         ("chess", "шахматы"),
     )
     SPORT_ICONS = {
-        "football": "football-icon.png",
-        "tennis": "tennis-icon.png",
-        "ice hockey": "hockey-icon.png",
+        "football": "fas fa-futbol",
+        "tennis": "fas fa-table-tennis",
+        "bowling": "fas fa-bowling-ball",
+        "beach volleyball": "fas fa-volleyball-ball",
+        "volleyball": "fas fa-volleyball-ball",
+        "ice hockey": "fas fa-hockey-puck",
+        "chess": "fas fa-chess",
     }
 
     CHOICES = (("open", "Open"), ("started", "Started"), ("finished", "Finished"))
