@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
+from django.template.loader import render_to_string
 from django.views.decorators.http import require_POST
 
 from games.forms import GameCreateForm
@@ -84,3 +85,19 @@ def game_join(request):
         except Game.DoesNotExist:
             pass
     return JsonResponse({'status': 'error'})
+
+
+@login_required
+def get_player_list(request, game_id):
+    game = get_object_or_404(Game, id=game_id)
+    joined_players = game.joined_players.all()
+
+    # Рендерим HTML для списка игроков
+    player_list_html = render_to_string('games/game/player_list.html', {
+        'joined_players': joined_players,
+    })
+
+    return JsonResponse({
+        'status': 'ok',
+        'player_list_html': player_list_html,
+    })

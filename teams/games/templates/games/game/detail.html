@@ -35,10 +35,10 @@
             {% endif %}
         </a>
     </div>
-        <div class="image-likes">
+        <div class="image-likes" id="player-list">
             {% for user in joined_players %}
                 <div>
-                    <p>{{ user.first_name }}</p>
+                    <p>{{ user.username }}</p>
                 </div>
             {% empty %}
                 Nobody players joined
@@ -74,8 +74,7 @@
     fetch(url, options)
     .then(response => response.json())
     .then(data => {
-        if (data['status'] ==='ok')
-        {
+        if (data['status'] ==='ok') {
             var previousAction = joinButton.dataset.action;
 
             // переключить текст кнопки и атрибут data-action
@@ -83,12 +82,29 @@
             joinButton.dataset.action = action;
             joinButton.innerHTML = action;
 
-            // обновить количество присоединений игроков
+            // Обновить количество присоединений игроков
             var joinCount = document.querySelector('span.count');
-            var totalJoins = parseInt(joinCount.innerHTML);
-            var maxPlayers = parseInt(joinButton.dataset.maxPlayers);
-            joinCount.innerHTML = previousAction === 'join' ? totalJoins + 1 + ' / ' + maxPlayers : totalJoins - 1 + ' / ' + maxPlayers;
+            var totalJoins = parseInt(joinCount.innerHTML.split(' / ')[0]);
+            var maxPlayers = parseInt(joinCount.innerHTML.split(' / ')[1]);
+
+            joinCount.innerHTML = previousAction === 'join'
+                ? (totalJoins + 1) + ' / ' + maxPlayers
+                : (totalJoins - 1) + ' / ' + maxPlayers;
+
+            // Запрашиваем обновленный список игроков
+            fetch(`/games/get_player_list/${gameId}/`) // Добавьте это представление для получения списка
+                .then(response => response.json())
+                .then(playerData => {
+                    if (playerData.status === 'ok') {
+                        document.querySelector('#player-list').innerHTML = playerData.player_list_html;
+                    }
+                });
+        } else {
+            alert(data.message); // Показываем сообщение об ошибке
         }
-      })
+    })
+    .catch(error => {
+        console.error("Ошибка: " + error);
     });
+});
 {% endblock %}

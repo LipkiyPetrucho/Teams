@@ -1,0 +1,7 @@
+{% for user in joined_players %}
+    <div>
+        <p>{{ user.username }}</p>
+    </div>
+{% empty %}
+    <div>Nobody players joined</div>
+{% endfor %}
